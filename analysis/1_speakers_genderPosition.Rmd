@@ -1,0 +1,141 @@
+---
+title: "Gender bias in speakers and career position"
+author: "Melina Leite & Júlia Barreto"
+date: "`r format(Sys.time(), '%d de %B de %Y')`"
+output:
+  rmdformats::readthedown:
+    highlight: kate
+    self_contained: true
+    thumbnails: false
+    lightbox: true
+    gallery: false
+  pdf_document:
+    highlight: tango
+    toc: yes
+---
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse); library(cowplot); library(patchwork)
+theme_set(theme_cowplot())
+library(DHARMa); library(ggeffects)
+library(bbmle);
+library(performance)
+library(glmmTMB)
+
+opts_chunk$set(fig.align = 'center', warning = FALSE, message = FALSE, error = FALSE, echo=T, cache=F)
+options(formatR.arrow = TRUE, width = 90, help_type = "html")
+```
+
+# Data
+
+Data description and summary statistics in script `0_data_summary`.
+
+```{r}
+load("output/data_proportion.Rdata")
+load("output/data_pop_ppge.Rdata")
+data <- data_p
+```
+
+
+Creating dummy column to indicate if the speaker is a female (1) or not (0)
+```{r}
+data$fem <- 1
+data$fem[data$gender == "M"] <- 0 
+```
+
+
+# Modeling
+
+Proportions of female speakers by academic level, before and after affirmative actions. Controling for population proportions: the ratio of females at the graduate program by academic level and year.
+
+```{r}
+data <- data %>% left_join(pop2[,c(1:2,10)], by=c("year", "position_cat"="category")) %>%
+  mutate(position_cat = fct_relevel(position_cat, "student","postdoc",
+                                    "professor"))
+```
+
+Mixed effects model, including year as random intercept.
+
+Binomial distribution
+
+```{r, echo=T}
+mod0 <- glmmTMB(fem ~ 1 + ratioFcat + (1|year), 
+              family=binomial, data= data)
+mod1 <- glmmTMB(fem ~ affirm_action + ratioFcat + (1|year), 
+              family=binomial, data= data)
+mod2 <- glmmTMB(fem ~ position_cat + ratioFcat + (1|year), 
+              family=binomial, data= data)
+mod3 <- glmmTMB(fem ~ position_cat + affirm_action + ratioFcat + (1|year), 
+              family=binomial, data= data)
+mod4 <- glmmTMB(fem ~ position_cat*affirm_action + ratioFcat + (1|year), 
+              family=binomial, data= data)
+
+kable(AICtab(mod0,mod1,mod2,mod3,mod4, base=T, weights=T), digits=2)
+```
+
+
+## Residual diagnostic of the selected models
+
+Using the `DHARMa` package.
+
+The two most plausible models presented a satisfactory residual diagnostic.
+
+```{r}
+plot(simulateResiduals(mod4))
+plot(simulateResiduals(mod2))
+```
+
+## Models results
+
+Predicting the proportion of female speakers fixing the population gender ration at 1 (1:1).
+
+```{r}
+summary(mod4)
+performance::r2(mod4)
+my4 <- ggpredict(mod4, terms=c("position_cat","affirm_action",
+                                 "ratioFcat[1]"))
+```
+
+
+```{r fig prop, echo=F}
+suma <- data %>% count(position_cat, affirm_action,fem) %>%
+  mutate(position_cat = fct_relevel(position_cat, "student", "postdoc", "professor"))
+prs <- as.data.frame(my4)
+
+ggplot(suma, aes(x=position_cat, y=fem,col=affirm_action))+
+  geom_point(aes(, size=n),position=position_dodge(0.6), alpha=0.2, show_guides=F) +
+  scale_size(range=c(1,10), breaks = c(3,10,20,60))+
+  geom_pointrange(data=prs, aes(x=x, y=predicted, col=group,
+                                ymax=conf.high, ymin=conf.low), 
+             position=position_dodge(0.6)) +
+  geom_hline(yintercept = 0.5, linetype="dashed", col='gray') +
+  scale_color_manual(name="Affirmative \n actions", 
+                     values = c("goldenrod", "green4")) +
+  ylab("Proportion of female speakers")+
+  xlab("Academic level")+
+  theme(text = element_text(size=20),
+        axis.text = element_text(size=18))
+#ggsave("figures/FIG_2_prop_female_speakers_model.jpeg", width=9, height = 6)  
+```
+
+```{r}
+summary(mod2)
+performance::r2(mod2)
+my2 <- ggpredict(mod2, terms=c( "position_cat",
+                                 "ratioFcat[1]"))
+```
+
+
+```{r, echo=F}
+prs2 <- as.data.frame(my2)
+ggplot(prs2, aes(x=x, y=predicted, ymin=conf.low, ymax=conf.high)) +
+  geom_pointrange()+
+   geom_hline(yintercept = 0.5, linetype="dashed", col='gray') +
+  ylab("Proportion of female speakers")+
+  xlab("Academic level")+ ylim(0,1)+
+  theme(text = element_text(size=20),
+        axis.text = element_text(size=18))
+#ggsave("figures/FIG_S2_prop_female_speakers_model2.jpeg", width=9, height = 6)  
+```
+
+

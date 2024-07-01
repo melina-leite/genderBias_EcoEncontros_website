@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Melina Leite &amp; Júlia Barreto" />
+
+
+<title>Text analysis: title and abstract of male and female speakers</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">genderBias_EcoEncontros</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="0_data_summary.html">1 Data Summary</a>
+</li>
+<li>
+  <a href="1_speaker_genderPosition.html">2 Speaker analysis</a>
+</li>
+<li>
+  <a href="2_audience_genderPosition.html">3 Audience analysis</a>
+</li>
+<li>
+  <a href="3_text_genderAnalysis.html">4 Text analysis</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/melina_leite/genderBias_EcoEncontros">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Text analysis: title and abstract of male
+and female speakers</h1>
+<h4 class="author">Melina Leite &amp; Júlia Barreto</h4>
+<h4 class="date">30 de Junho de 2024</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-06-30
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>genderBias_EcoEncontros_website/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240630code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240630)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240630code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240630)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong168ffc9">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 168ffc9
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong168ffc9"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 168ffc9.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/3_text_genderAnalysis.Rmd</code>)
+and HTML (<code>docs/3_text_genderAnalysis.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+<td>
+publish the initial version of the website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+<td>
+publish the initial version of the website
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>Data description and summary statistics in script
+<code>0_data_summary</code>.</p>
+<pre class="r"><code>load(&quot;output/data_title.Rdata&quot;)
+data &lt;- data_t</code></pre>
+<p>Using data from titles and abstracts.</p>
+<p>Formating titles</p>
+<pre class="r"><code>tit &lt;- data %&gt;% dplyr::select(id,gender,position_cat, audience_n,
+                              title_english) 
+text_tit &lt;- tit %&gt;% unnest_tokens(output=word,
+                                   input=title_english)</code></pre>
+<p>Total of 320 titles.</p>
+<p>Number of titles per group</p>
+<pre class="r"><code>table(tit$gender) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F</td>
+<td align="right">140</td>
+</tr>
+<tr class="even">
+<td align="left">M</td>
+<td align="right">180</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>table(tit$position_cat,tit$gender) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">F</th>
+<th align="right">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">others</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">postdoc</td>
+<td align="right">25</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">professor</td>
+<td align="right">24</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">student</td>
+<td align="right">86</td>
+<td align="right">74</td>
+</tr>
+</tbody>
+</table>
+<p>Formating abstracts</p>
+<pre class="r"><code>data_abs &lt;- data  %&gt;% filter(!is.na(abstract_english)) 
+text_tok &lt;- data %&gt;% dplyr::select(id,gender,position_cat, audience_n,
+                             abstract_english) %&gt;%
+  unnest_tokens(output=word,input=abstract_english)</code></pre>
+<p>Total of 234 abstracts.</p>
+<p>Number of abstracts per group</p>
+<pre class="r"><code>table(data_abs$gender) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="left">M</td>
+<td align="right">135</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>table(data_abs$position_cat,data_abs$gender)%&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">F</th>
+<th align="right">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">others</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">postdoc</td>
+<td align="right">21</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left">professor</td>
+<td align="right">20</td>
+<td align="right">57</td>
+</tr>
+<tr class="even">
+<td align="left">student</td>
+<td align="right">53</td>
+<td align="right">56</td>
+</tr>
+</tbody>
+</table>
+<p>Tidytext</p>
+<pre class="r"><code>texts &lt;- bind_rows(text_tit, text_tok)
+
+stop_w &lt;- tibble(word = stopwords(&quot;en&quot;))
+
+# remove stopwords
+text &lt;- texts %&gt;% 
+  anti_join(stop_w, by=&quot;word&quot;) %&gt;% arrange(word) 
+
+# remove other non-words (numbersm characters) and stopwords
+text &lt;- text %&gt;% dplyr::slice(-c(1:281)) %&gt;% # number and some symbols
+          filter(nchar(word)!=1) %&gt;% # letters alone
+          filter(!word %in% c(&quot;mpas&quot;, &quot;δ13c&quot;, &quot;β&quot;, &quot;can&quot;, &quot;aff&quot;, &quot;agb&quot;, &quot;al&quot;,
+                              &quot;and&quot;,&quot;são&quot;))
+
+# solving some simple plurals
+plural &lt;- c(&quot;actions&quot;,&quot;advances&quot;, &quot;adaptations&quot;, &quot;amphibians&quot;, &quot;animals&quot;, 
+            &quot;ants&quot;,&quot;anurans&quot;,
+            &quot;applications&quot;,&quot;approaches&quot;, &quot;bees&quot;,&quot;builds&quot;, &quot;birds&quot;,
+            &quot;cerrados&quot;,&quot;challenges&quot;, &quot;biologists&quot;, &quot;captures&quot;,
+            &quot;continents&quot;,&quot;crops&quot;, 
+            &quot;decisions&quot;,&quot;declines&quot;,&quot;determines&quot;,&quot;determinants&quot;, &quot;defenses&quot;,
+            &quot;dynamics&quot;, &quot;dunnocks&quot;,
+            &quot;economics&quot;, &quot;ecosystems&quot;,&quot;environments&quot;, &quot;experiences&quot;,
+            &quot;forests&quot;, &quot;fruits&quot;, &quot;fathers&quot;,
+            &quot;genetics&quot;,&quot;gifts&quot;,&quot;gradients&quot;,&quot;guides&quot;,&quot;impacts&quot;, &quot;islands&quot;,
+            &quot;increases&quot;,&quot;interactions&quot;, &quot;jobs&quot;,  &quot;lives&quot;, &quot;insects&quot;,
+            &quot;landscapes&quot;,&quot;males&quot;,&quot;mammals&quot;, &quot;mangroves&quot;,&quot;models&quot;,&quot;movements&quot;,
+            &quot;mutualisms&quot;,&quot;networks&quot;,&quot;neotropics&quot;,
+            &quot;opilions&quot;,&quot;phenotypes&quot;,&quot;plants&quot;,&quot;projects&quot;,&quot;paths&quot;, &quot;perspectives&quot;,
+            &quot;purposes&quot;, &quot;populations&quot;,&quot;promotes&quot;,&quot;relationships&quot;, &quot;relations&quot;,
+            &quot;resources&quot;,&quot;responses&quot;,&quot;roads&quot;,&quot;services&quot;,&quot;skulls&quot;,&quot;snakes&quot;,&quot;seeds&quot;,
+            &quot;soils&quot;, &quot;spaces&quot;, &quot;spiders&quot;,&quot;stages&quot;, &quot;trees&quot;, &quot;variations&quot;,
+            &quot;threats&quot;)
+
+text$word[text$word %in% plural] &lt;- 
+  substr(text$word[text$word %in% plural],
+       1,nchar(text$word[text$word %in% plural])-1)</code></pre>
+<p>Grouping similar words:</p>
+<pre class="r"><code>lemma &lt;- rbind(c(&quot;adaptive&quot;, &quot;adaptation&quot;),
+               c(&quot;advancement&quot;, &quot;advance&quot;),
+               c(&quot;agricultural&quot;, &quot;agriculture&quot;),
+               c(&quot;agro&quot;, &quot;agriculture&quot; ),
+               c(&quot;amazonia&quot;,&quot;amazon&quot; ),
+               c(&quot;amazonian&quot;,&quot;amazon&quot; ),
+               c(&quot;andean&quot;,&quot;andes&quot;),
+               c(&quot;apply&quot;,&quot;application&quot;),
+               c(&quot;applying&quot;,&quot;application&quot;),
+               c(&quot;approaches&quot;, &quot;approach&quot;),
+               c(&quot;apidae&quot;,&quot;apis&quot;),
+               c(&quot;arachnida&quot;,&quot;arachnid&quot;),
+               c(&quot;argue&quot;,&quot;argument&quot;),
+               c(&quot;basal&quot;, &quot;basis&quot;),
+               c(&quot;behavioral&quot;,&quot;behavior&quot;),
+               c(&quot;behavioural&quot;,&quot;behavior&quot;),
+               c(&quot;bignonieae&quot;, &quot;bignoniaceae&quot;),
+               c(&quot;biological&quot;, &quot;biology&quot;),
+               c(&quot;brazilian&quot;,&quot;brazil&quot;),
+               c(&quot;building&quot;,&quot;build&quot;),
+               c(&quot;butterflies&quot;, &quot;butterfly&quot;),
+               c(&quot;changing&quot;, &quot;change&quot;),
+               c(&quot;cnidarian&quot;, &quot;cnidaria&quot;),
+               c(&quot;coastal&quot;,&quot;coast&quot;),
+               c(&quot;colour&quot;, &quot;color&quot;),
+               c(&quot;colors&quot;, &quot;color&quot;),
+               c(&quot;communities&quot;,&quot;community&quot; ),
+               c(&quot;competitive&quot;, &quot;competition&quot;),
+               c(&quot;complexity&quot;, &quot;complex&quot;),
+               c(&quot;convergences&quot;, &quot;convergence&quot;),
+               c(&quot;convergent&quot;, &quot;convergence&quot;),
+               c(&quot;croplands&quot;,&quot;crop&quot;),
+               c( &quot;cultural&quot;, &quot;culture&quot;),
+               c(&quot;darwin&#39;s&quot;, &quot;darwin&quot;),
+               c(&quot;darwinian&quot;, &quot;darwin&quot;),
+               c(&quot;defensive&quot;, &quot;defense&quot;),
+               c(&quot;dependent&quot;,&quot;dependence&quot;),
+               c(&quot;detecting&quot;,&quot;detection&quot;),
+               c(&quot;determine&quot;, &quot;determinant&quot;),
+               c(&quot;developmental&quot;, &quot;development&quot;),
+               c(&quot;dispersers&quot;,&quot;dispersal&quot;),
+               c(&quot;disturbed&quot;, &quot;disturbance&quot;),
+               c(&quot;diversification&quot;, &quot;diversity&quot;),
+               c(&quot;dragonflies&quot;, &quot;dragonfly&quot;),
+               c(&quot;drier&quot;, &quot;drought&quot;),
+               c(&quot;ecological&quot;, &quot;ecology&quot;),
+               c(&quot;ecologists&quot;, &quot;ecology&quot;),
+               c(&quot;endemic&quot;, &quot;endemism&quot;),
+               c(&quot;effectiveness&quot;, &quot;efficiency&quot;),
+               c(&quot;environmental&quot;, &quot;environment&quot;),
+               c(&quot;evolutionary&quot;, &quot;evolution&quot;),
+               c(&quot;expanding&quot;, &quot;expansion&quot;),
+               c(&quot;extinct&quot;, &quot;extinction&quot;),
+               c(&quot;facilitate&quot;, &quot;facilitation&quot;),
+               c(&quot;fisheries&quot;, &quot;fishery&quot;),
+               c(&quot;floral&quot;, &quot;flora&quot;),
+               c(&quot;floristic&quot;, &quot;flora&quot;),
+               c(&quot;forested&quot;, &quot;forest&quot;),
+               c(&quot;functional&quot;, &quot;function&quot;),
+               c(&quot;functionally&quot;, &quot;function&quot;),
+               c(&quot;functioning&quot;, &quot;function&quot;),
+               c(&quot;geographical&quot;, &quot;geographic&quot;),
+               c(&quot;heterogeneties&quot;, &quot;heterogeneity&quot;),
+               c(&quot;heterogeneous&quot;, &quot;heterogeneity&quot;),
+               c(&quot;histories&quot;, &quot;history&quot;),
+               c(&quot;integrated&quot;, &quot;integration&quot;),
+               c(&quot;intregating&quot;, &quot;integration&quot;),
+               c(&quot;integrative&quot;, &quot;integration&quot;),
+               c(&quot;invasive&quot;, &quot;invasion&quot;),
+               c(&quot;isotopic&quot;, &quot;isotope&quot;),
+               c(&quot;linking&quot;, &quot;link&quot;),
+               c(&quot;living&quot;, &quot;live&quot;),
+               c(&quot;mammalia&quot;, &quot;mammal&quot;),
+               c(&quot;managed&quot;, &quot;manage&quot;),
+               c(&quot;managers&quot;, &quot;manage&quot;),
+               c(&quot;mathematical&quot;, &quot;mathematics&quot;),
+               c(&quot;mates&quot;, &quot;mating&quot;),
+               c(&quot;mediated&quot;, &quot;mediate&quot;),
+               c(&quot;mechanistic&quot;, &quot;mechanism&quot;),
+               c(&quot;matrices&quot;, &quot;matrix&quot;),
+               c(&quot;migratory&quot;, &quot;migration&quot;),
+               c(&quot;mimicking&quot;, &quot;mimicry&quot;),
+               c(&quot;modeling&quot;, &quot;model&quot;),
+               c(&quot;mutualistic&quot;, &quot;mutualism&quot;),
+               c(&quot;natural&quot;, &quot;nature&quot;),
+               c(&quot;neotropical&quot;, &quot;neotropic&quot;),
+               c(&quot;northeastern&quot;, &quot;northeast&quot;),
+               c(&quot;occuring&quot;, &quot;occur&quot;),
+               c(&quot;onça&quot;, &quot;onca&quot;),
+               c(&quot;opiliones&quot;, &quot;opilion&quot;),
+               c(&quot;parasite&quot;, &quot;parasitism&quot;),
+               c(&quot;parent&quot;, &quot;parenting&quot;),
+               c(&quot;phylogenies&quot;, &quot;phylogeny&quot;),
+               c(&quot;phylogenetic&quot;, &quot;phylogeny&quot;),
+               c(&quot;phylogenomic&quot;, &quot;phylogeny&quot;),
+               c(&quot;pollinators&quot;, &quot;pollination&quot;),
+               c(&quot;protected&quot;, &quot;protect&quot;),
+               c(&quot;protective&quot;, &quot;protect&quot;),
+               c(&quot;rainfall&quot;, &quot;rain&quot;),
+               c(&quot;reconstructing&quot;, &quot;reconstruction&quot;),
+               c(&quot;regulatory&quot;, &quot;regulation&quot;),
+               c(&quot;regulates&quot;, &quot;regulation&quot;),
+               c(&quot;relation&quot;, &quot;relationship&quot;),
+               c(&quot;reproductive&quot;, &quot;reproduction&quot;),
+               c(&quot;restored&quot;, &quot;restoration&quot;),
+               c(&quot;robustness&quot;, &quot;robust&quot;),
+               c(&quot;scientific&quot;, &quot;science&quot;),
+               c(&quot;scientist&quot;, &quot;science&quot;),
+               c(&quot;sexy&quot;, &quot;sexual&quot;),
+               c(&quot;simulated&quot;, &quot;simulation&quot;),
+               c(&quot;societies&quot;, &quot;society&quot;),
+               c(&quot;social&quot;, &quot;society&quot;),
+               c(&quot;socio&quot;, &quot;society&quot;),
+               c(&quot;space&quot;, &quot;spatial&quot;),
+               c(&quot;spacio&quot;, &quot;spatial&quot;),
+               c(&quot;stabilize&quot;, &quot;stability&quot;),
+               c(&quot;stable&quot;, &quot;stability&quot;),
+               c(&quot;stories&quot;, &quot;story&quot;),
+               c(&quot;strategic&quot;, &quot;strategy&quot;),
+               c(&quot;strategies&quot;, &quot;strategy&quot;),
+               c(&quot;structured&quot;, &quot;structure&quot;),
+               c(&quot;structuring&quot;, &quot;structure&quot;),
+               c(&quot;studies&quot;, &quot;study&quot;),
+               c(&quot;studing&quot;, &quot;study&quot;),
+               c(&quot;sustainable&quot;, &quot;sustainability&quot;),
+               c(&quot;theories&quot;, &quot;theory&quot;),
+               c(&quot;theoretical&quot;, &quot;theory&quot;),
+               c(&quot;threatened&quot;, &quot;threat&quot;),
+               c(&quot;tropical&quot;, &quot;tropic&quot;),
+               c(&quot;vision&quot;, &quot;visual&quot;)
+               )
+lemma &lt;- as.data.frame(lemma)
+
+for (i in 1:dim(lemma)[1]){
+  text$word[text$word == lemma[i,1]] &lt;- lemma[i,2]
+}</code></pre>
+</div>
+<div id="words---all-data" class="section level1">
+<h1>WORDS - all data</h1>
+<p>Number of words per gender and academic level</p>
+<pre class="r"><code>table(text$gender) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F</td>
+<td align="right">10905</td>
+</tr>
+<tr class="even">
+<td align="left">M</td>
+<td align="right">13429</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>table(text$position_cat ,text$gender)%&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">F</th>
+<th align="right">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">others</td>
+<td align="right">260</td>
+<td align="right">137</td>
+</tr>
+<tr class="even">
+<td align="left">postdoc</td>
+<td align="right">2806</td>
+<td align="right">2555</td>
+</tr>
+<tr class="odd">
+<td align="left">professor</td>
+<td align="right">1977</td>
+<td align="right">5078</td>
+</tr>
+<tr class="even">
+<td align="left">student</td>
+<td align="right">5771</td>
+<td align="right">5648</td>
+</tr>
+</tbody>
+</table>
+<p>20 more common workds</p>
+<pre class="r"><code>text %&gt;%
+  count(word, sort = TRUE) %&gt;% 
+  top_n(20,n)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">word</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">species</td>
+<td align="right">388</td>
+</tr>
+<tr class="even">
+<td align="left">ecology</td>
+<td align="right">196</td>
+</tr>
+<tr class="odd">
+<td align="left">forest</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="left">study</td>
+<td align="right">161</td>
+</tr>
+<tr class="odd">
+<td align="left">model</td>
+<td align="right">159</td>
+</tr>
+<tr class="even">
+<td align="left">evolution</td>
+<td align="right">140</td>
+</tr>
+<tr class="odd">
+<td align="left">environment</td>
+<td align="right">138</td>
+</tr>
+<tr class="even">
+<td align="left">landscape</td>
+<td align="right">126</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="right">126</td>
+</tr>
+<tr class="even">
+<td align="left">diversity</td>
+<td align="right">117</td>
+</tr>
+<tr class="odd">
+<td align="left">plant</td>
+<td align="right">103</td>
+</tr>
+<tr class="even">
+<td align="left">community</td>
+<td align="right">101</td>
+</tr>
+<tr class="odd">
+<td align="left">male</td>
+<td align="right">101</td>
+</tr>
+<tr class="even">
+<td align="left">different</td>
+<td align="right">97</td>
+</tr>
+<tr class="odd">
+<td align="left">nature</td>
+<td align="right">94</td>
+</tr>
+<tr class="even">
+<td align="left">patterns</td>
+<td align="right">89</td>
+</tr>
+<tr class="odd">
+<td align="left">areas</td>
+<td align="right">86</td>
+</tr>
+<tr class="even">
+<td align="left">interaction</td>
+<td align="right">84</td>
+</tr>
+<tr class="odd">
+<td align="left">present</td>
+<td align="right">84</td>
+</tr>
+<tr class="even">
+<td align="left">animal</td>
+<td align="right">82</td>
+</tr>
+<tr class="odd">
+<td align="left">use</td>
+<td align="right">82</td>
+</tr>
+</tbody>
+</table>
+<div id="word-cloud" class="section level2">
+<h2>Word cloud</h2>
+<p>All words</p>
+<pre class="r"><code>textplot_wordcloud(x=dfm(tokens(text$word)))</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>By gender. Purple female, yellow male</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+textplot_wordcloud(x=dfm(tokens(text$word[text$gender==&quot;F&quot;])),
+                   col=&quot;#6D57CF&quot;)
+par(new=T)
+textplot_wordcloud(x=dfm(tokens(text$word[text$gender==&quot;M&quot;])),
+                   col=&quot;#FCA532&quot;)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="word-frequencies-by-gender" class="section level2">
+<h2>Word frequencies by gender</h2>
+<pre class="r"><code>props &lt;- text %&gt;%
+  count(gender, word) %&gt;%
+  group_by(gender) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;% 
+  pivot_wider(names_from = gender, values_from = c(proportion,n)) %&gt;%
+  mutate(abs.dif.p = abs(proportion_F-proportion_M),
+         rel.dif.p = pmax(proportion_F, proportion_M)/
+           pmin(proportion_F, proportion_M)) %&gt;%
+  arrange(desc(abs.dif.p))
+props$label &lt;- NA
+props$label[1:20] &lt;- props$word[1:20]</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Words that are close to the dashed line have similar frequencies in
+both genders. Words that are far from the line are words that are found
+more in one set of texts than another.</p>
+<p>Legend: absolute differences in the frequency of the word by males
+and females. Differences above 0.3% are also indicated in text.</p>
+<p>Correlation of word frequeency use between gender:</p>
+<pre class="r"><code>cor.test(props$proportion_F, props$proportion_M)</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  props$proportion_F and props$proportion_M
+t = 70.674, df = 1650, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8544996 0.8784931
+sample estimates:
+     cor 
+0.866998 </code></pre>
+<p>Highly correlated -&gt; it means they tend to use the same frequency
+of main word</p>
+<p>20 words with the largest differences in frequency</p>
+<pre class="r"><code>prop2 &lt;- props %&gt;% filter(!is.na(label)) %&gt;%
+  arrange(desc(proportion_F), desc(proportion_M)) %&gt;%
+  mutate(ntot = n_F + n_M) %&gt;%
+  mutate(word = fct_reorder(word,(ntot),max),
+         proportion_F = proportion_F*-1) %&gt;%
+  pivot_longer(2:3,names_to = &quot;gender&quot;, values_to =&quot;proportion&quot;)
+
+ggplot(prop2, aes(x=proportion, y=word,fill=gender)) +
+  geom_col()+ ylab(&quot;&quot;) + xlab(&quot;Proportion&quot;)+
+  scale_fill_manual(name=&quot;gender&quot;, values=c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;),
+                    labels=c(&quot;F&quot;, &quot;M&quot;))+
+   geom_vline(xintercept = c(-0.02,-0.01,0,0.01,0.02),
+              linetype=&quot;dotted&quot;,
+             col=&quot;darkgray&quot;) +
+  scale_x_continuous(breaks=c(-0.02,-0.01,0,0.01,0.02),
+                     labels = c(0.02,0.01,0,0.01,0.02))</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tf-idf" class="section level2">
+<h2>TF IDF</h2>
+<blockquote>
+<p>The statistic tf-idf is intended to measure how important a word is
+to a document in a collection (or corpus) of documents, for example, to
+one novel in a collection of novels or to one website in a collection of
+websites.</p>
+</blockquote>
+<blockquote>
+<p>Calculating tf-idf attempts to find the words that are important
+(i.e., common) in a text, but not too common. Let’s do that now.</p>
+</blockquote>
+<pre class="r"><code>text_id &lt;- text %&gt;% count(gender, word) %&gt;% 
+  bind_tf_idf(word, gender, n) %&gt;%
+  arrange(desc(tf_idf))</code></pre>
+<p>10 “exclusive” words for each group</p>
+<pre class="r"><code>text_id$word &lt;- as.factor(text_id$word)
+text_id %&gt;%
+  group_by(gender) %&gt;% 
+  arrange(desc(tf_idf)) %&gt;% 
+  top_n(10, tf_idf) %&gt;%  
+  ggplot(aes(x = tf_idf, y = reorder(word, tf_idf), fill = gender)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = &quot;tf-idf&quot;) +
+  facet_wrap(~gender, scales = &quot;free&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="words---professors-only-data" class="section level1">
+<h1>WORDS - professors only data</h1>
+<pre class="r"><code>textP &lt;- text %&gt;% filter(position_cat == &quot;professor&quot;)
+
+table(textP$gender)</code></pre>
+<pre><code>
+   F    M 
+1977 5078 </code></pre>
+<pre class="r"><code>par(mfrow=c(1,2))
+textplot_wordcloud(x=dfm(tokens(textP$word[textP$gender==&quot;F&quot;])),
+                   col=&quot;#6D57CF&quot;)
+par(new=T)
+textplot_wordcloud(x=dfm(tokens(textP$word[textP$gender==&quot;M&quot;])),
+                   col=&quot;#FCA532&quot;)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Mean number of words by abstract</p>
+<pre class="r"><code>textP %&gt;% count(id,gender) %&gt;%
+  ggplot(aes(x=gender, y=n)) + 
+  geom_violin() + geom_boxplot(width=0.2)+
+  ggbeeswarm::geom_quasirandom(size=3, shape=21) </code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>20 most commmon words</p>
+<pre class="r"><code>textP %&gt;%
+  count(word, sort = TRUE) %&gt;% 
+  top_n(20,n)%&gt;%
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">word</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">species</td>
+<td align="right">90</td>
+</tr>
+<tr class="even">
+<td align="left">ecology</td>
+<td align="right">71</td>
+</tr>
+<tr class="odd">
+<td align="left">evolution</td>
+<td align="right">54</td>
+</tr>
+<tr class="even">
+<td align="left">population</td>
+<td align="right">50</td>
+</tr>
+<tr class="odd">
+<td align="left">environment</td>
+<td align="right">47</td>
+</tr>
+<tr class="even">
+<td align="left">study</td>
+<td align="right">45</td>
+</tr>
+<tr class="odd">
+<td align="left">plant</td>
+<td align="right">43</td>
+</tr>
+<tr class="even">
+<td align="left">model</td>
+<td align="right">39</td>
+</tr>
+<tr class="odd">
+<td align="left">diversity</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td align="left">nature</td>
+<td align="right">36</td>
+</tr>
+<tr class="odd">
+<td align="left">ecosystem</td>
+<td align="right">33</td>
+</tr>
+<tr class="even">
+<td align="left">pollination</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">research</td>
+<td align="right">31</td>
+</tr>
+<tr class="even">
+<td align="left">society</td>
+<td align="right">30</td>
+</tr>
+<tr class="odd">
+<td align="left">biology</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">science</td>
+<td align="right">29</td>
+</tr>
+<tr class="odd">
+<td align="left">interaction</td>
+<td align="right">27</td>
+</tr>
+<tr class="even">
+<td align="left">amphibian</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="left">may</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="left">community</td>
+<td align="right">24</td>
+</tr>
+</tbody>
+</table>
+<div id="words-frequency-by-gender" class="section level2">
+<h2>Words Frequency by gender</h2>
+<pre class="r"><code>propsP &lt;- textP %&gt;%
+    count(gender, word) %&gt;%
+  group_by(gender) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;% 
+  pivot_wider(names_from = gender, values_from = c(proportion,n)) %&gt;%
+  mutate(abs.dif.p = abs(proportion_F-proportion_M),
+         rel.dif.p = pmax(proportion_F, proportion_M)/
+           pmin(proportion_F, proportion_M)) %&gt;%
+  arrange(desc(abs.dif.p))
+propsP$label &lt;- NA
+propsP$label[1:20] &lt;- propsP$word[1:20]</code></pre>
+<pre class="r"><code>ggplot(propsP, aes(x=proportion_M,, y=proportion_F,
+       color=abs.dif.p)) + 
+  geom_abline(color = &quot;gray40&quot;, lty = 2) +
+  geom_point(size=1, alpha=0.1)+
+ # geom_jitter(size=2.5, alpha=0.02)+
+  geom_text(aes(label=word), check_overlap = T,vjust=1,hjust=0.32)+
+  #geom_text_repel(aes(label=label), size=3.2)+
+  #xlim(0,1)+ylim(0,0.2)+
+  scale_x_log10(name=&quot;Male most used words&quot;, limits=c(0.0003,0.02),
+                labels = percent_format()) +
+  scale_y_log10(name=&quot;Female most used words&quot;,limits=c(0.0003,0.02),
+                labels = percent_format()) +
+  scale_color_gradient(name=&quot;Absolute \n difference&quot;,low = &quot;blue&quot;, high = &quot;red&quot;,
+                       labels=percent_format()
+                       )  +
+  theme(legend.justification = c(1, -0.1), legend.position = c(1, 0))</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code> # geom_smooth(method=&quot;lm&quot;)
+#ggsave(&quot;figures/FIG_S4_wordFreq_Prof.jpg&quot;, height = 7, width=9)</code></pre>
+<p>Words that are close to the dashed line in these plots have similar
+frequencies in both genders. Words that are far from the line are words
+that are found more in one set of texts than another.</p>
+<p>Legend: absolute differences in the frequency of the word by males
+and females.</p>
+<p>Labels for the 20 words with largest differences in frequency.</p>
+<p>Correlation of word frequeency use between gender:</p>
+<pre class="r"><code>cor.test(propsP$proportion_F, propsP$proportion_M)</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  propsP$proportion_F and propsP$proportion_M
+t = 20.205, df = 518, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.6128988 0.7093872
+sample estimates:
+      cor 
+0.6638971 </code></pre>
+<p>20 words with the largest differences in frequency</p>
+<pre class="r"><code>propP2 &lt;- propsP %&gt;% filter(!is.na(label)) %&gt;%
+  arrange(desc(proportion_F), desc(proportion_M)) %&gt;%
+  mutate(ntot = n_F + n_M) %&gt;%
+  mutate(word = fct_reorder(word,(ntot),max),
+         proportion_F = proportion_F*-1) %&gt;%
+  pivot_longer(2:3,names_to = &quot;gender&quot;, values_to =&quot;proportion&quot;)
+
+ggplot(propP2, aes(x=proportion, y=word,fill=gender)) +
+  geom_col()+ ylab(&quot;&quot;) + xlab(&quot;Proportion&quot;)+
+  scale_fill_manual(name=&quot;gender&quot;, values=c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;),
+                    labels=c(&quot;F&quot;, &quot;M&quot;))+
+   geom_vline(xintercept = c(-0.02,-0.01,0,0.01,0.02),
+              linetype=&quot;dotted&quot;,
+             col=&quot;darkgray&quot;) +
+  scale_x_continuous(breaks=c(-0.02,-0.01,0,0.01,0.02),
+                     labels = c(0.02,0.01,0,0.01,0.02))</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tf-idf-1" class="section level2">
+<h2>TF IDF</h2>
+<pre class="r"><code>text_idP &lt;- textP %&gt;% count(gender, word) %&gt;% 
+  bind_tf_idf(word, gender, n) %&gt;%
+  arrange(desc(tf_idf))</code></pre>
+<p>10 “exclusive” words for each group</p>
+<pre class="r"><code>text_idP$word &lt;- as.factor(text_idP$word)
+text_idP %&gt;%
+  group_by(gender) %&gt;% 
+  arrange(desc(tf_idf)) %&gt;% 
+  top_n(10, tf_idf) %&gt;%  
+  ggplot(aes(x = tf_idf, y = reorder(word, tf_idf), fill = gender)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = &quot;tf-idf&quot;) +
+  facet_wrap(~gender, scales = &quot;free&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="topic-model---all-data" class="section level1">
+<h1>Topic model - all data</h1>
+<p>LDA - latent Dirichlet allocation method for fiting topic model</p>
+<blockquote>
+<p>It treats each document as a mixture of topics, and each topic as a
+mixture of words. This allows documents to “overlap” each other in terms
+of content, rather than being separated into discrete groups, in a way
+that mirrors typical use of natural lan‐ guage.</p>
+</blockquote>
+<blockquote>
+<p>Every document is a mixture of topics</p>
+</blockquote>
+<blockquote>
+<p>Every topic is a mixture of words</p>
+</blockquote>
+<pre class="r"><code>matext &lt;- text %&gt;% count(id, gender, word) %&gt;% mutate(id = paste(id, gender, sep=&quot;_&quot;)) %&gt;%
+  select(-gender) %&gt;%
+                cast_dtm(term=word,document=id,value=n)</code></pre>
+<p>Choosing number of topics: comparing AIC</p>
+<pre class="r"><code>ap_lda2 &lt;- LDA(matext, k = 2, control = list(seed = 1234))
+ap_lda3 &lt;- LDA(matext, k = 3, control = list(seed = 1234))
+ap_lda4 &lt;- LDA(matext, k = 4, control = list(seed = 1234))
+ap_lda5 &lt;- LDA(matext, k = 5, control = list(seed = 1234))
+ap_lda10&lt;- LDA(matext, k = 10, control = list(seed = 1234))
+ap_lda20 &lt;- LDA(matext, k = 20, control = list(seed = 1234))
+bbmle::AICtab(ap_lda2, ap_lda3, ap_lda4,ap_lda5, ap_lda10,ap_lda20,
+              base=T)</code></pre>
+<pre><code>         AIC      dAIC     df   
+ap_lda2  375926.2      0.0 9877 
+ap_lda3  378052.8   2126.6 14815
+ap_lda4  382295.0   6368.9 19753
+ap_lda5  387617.8  11691.7 24691
+ap_lda10 419995.2  44069.0 49381
+ap_lda20 498167.4 122241.3 98761</code></pre>
+<p>two-topics model seems the most plausible model</p>
+<div id="word-topic-probabilities" class="section level2">
+<h2>Word-topic probabilities</h2>
+<p>10 words with the largest probabilities for each group</p>
+<pre class="r"><code>ap_topics &lt;- tidy(ap_lda2, matrix = &quot;beta&quot;)
+ap_top_terms &lt;- ap_topics %&gt;%
+      group_by(topic) %&gt;%
+      top_n(10, beta) %&gt;%
+      ungroup() %&gt;%
+      arrange(topic, -beta)
+ap_top_terms %&gt;%
+mutate(term = reorder(term, beta)) %&gt;% 
+  ggplot(aes(term, beta, fill = factor(topic))) + 
+  geom_col(show.legend = FALSE) +
+facet_wrap(~ topic, scales = &quot;free&quot;) + coord_flip()</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>words with the greates difference in Beta between topics</p>
+<pre class="r"><code>beta_spread &lt;- ap_topics %&gt;%
+  mutate(topic = paste0(&quot;topic&quot;, topic)) %&gt;%
+  spread(topic, beta) %&gt;%
+  filter(topic1 &gt; .001 | topic2 &gt; .001) %&gt;%
+  mutate(log_ratio = log2(topic2 / topic1))
+beta_spread</code></pre>
+<pre><code># A tibble: 254 × 4
+   term           topic1   topic2 log_ratio
+   &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 abundance   0.00155   0.000501   -1.63  
+ 2 action      0.000531  0.00134     1.34  
+ 3 activities  0.000459  0.00116     1.33  
+ 4 adaptation  0.000769  0.00222     1.53  
+ 5 addition    0.00100   0.00106     0.0791
+ 6 advance     0.0000853 0.00115     3.75  
+ 7 affect      0.000752  0.00117     0.638 
+ 8 agriculture 0.00106   0.00135     0.355 
+ 9 also        0.00283   0.00275    -0.0386
+10 amazon      0.000871  0.00130     0.577 
+# ℹ 244 more rows</code></pre>
+<pre class="r"><code>beta_spread %&gt;%  
+  arrange(log_ratio) %&gt;% slice(c(1:5,260:264)) %&gt;%
+  ggplot(aes(fct_reorder(term,log_ratio,min), log_ratio)) + 
+  geom_col(show.legend = FALSE) + coord_flip() +
+  ylab(&quot;Log2 ration of beta in topic 2/topic 1&quot;) + xlab(&quot;Word&quot;)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="document-topic-probabilities---classifying-the-abstracts"
+class="section level2">
+<h2>Document-topic probabilities - classifying the abstracts</h2>
+<p>and comparing the two groups by gender (if there is a difference in
+frequency)</p>
+<pre class="r"><code>ap_documents &lt;- tidy(ap_lda2, matrix = &quot;gamma&quot;)
+classifi &lt;- ap_documents %&gt;% mutate(gender = substr(document, nchar(document), nchar(document))) %&gt;%
+  group_by(document,gender) %&gt;%
+      top_n(1, gamma) 
+
+table(classifi$gender, classifi$topic)</code></pre>
+<pre><code>   
+     1  2
+  F 76 57
+  M 93 84</code></pre>
+<pre class="r"><code>classifi %&gt;% tabyl(gender, topic) %&gt;% adorn_percentages() %&gt;%
+  adorn_pct_formatting(digits = 0) %&gt;%
+  adorn_ns() %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gender</th>
+<th align="left">1</th>
+<th align="left">2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F</td>
+<td align="left">57% (76)</td>
+<td align="left">43% (57)</td>
+</tr>
+<tr class="even">
+<td align="left">M</td>
+<td align="left">53% (93)</td>
+<td align="left">47% (84)</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>classifi %&gt;%
+ # mutate(title = reorder(title, gamma * topic)) %&gt;%
+  ggplot(aes(as.character(topic), gamma)) +
+  geom_boxplot() +
+  facet_wrap(~ gender)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="chi-square-test" class="section level2">
+<h2>Chi-square test</h2>
+<pre class="r"><code>chisq.test(classifi$gender, classifi$topic)</code></pre>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  classifi$gender and classifi$topic
+X-squared = 0.47591, df = 1, p-value = 0.4903</code></pre>
+</div>
+</div>
+<div id="topic-model---professors-only" class="section level1">
+<h1>Topic model - Professors only</h1>
+<pre class="r"><code>matextP &lt;- textP %&gt;% 
+  count(id, gender, word) %&gt;% mutate(id = paste(id, gender, sep=&quot;_&quot;)) %&gt;%
+  select(-gender) %&gt;%
+                cast_dtm(term=word,document=id,value=n)</code></pre>
+<pre class="r"><code>ap_lda2P &lt;- LDA(matextP, k = 2, control = list(seed = 1234))
+ap_lda3P &lt;- LDA(matextP, k = 3, control = list(seed = 1234))
+ap_lda4P &lt;- LDA(matextP, k = 4, control = list(seed = 1234))
+bbmle::AICtab(ap_lda2P, ap_lda3P, ap_lda4P,base=T)</code></pre>
+<pre><code>         AIC      dAIC     df  
+ap_lda2P 107292.8      0.0 4947
+ap_lda3P 108945.3   1652.4 7420
+ap_lda4P 111571.6   4278.8 9893</code></pre>
+<div id="word-topic-probabilities-1" class="section level2">
+<h2>word-topic probabilities</h2>
+<pre class="r"><code>ap_topicsP &lt;- tidy(ap_lda2P, matrix = &quot;beta&quot;)
+ap_top_termsP &lt;- ap_topicsP %&gt;%
+      group_by(topic) %&gt;%
+      top_n(10, beta) %&gt;%
+      ungroup() %&gt;%
+      arrange(topic, -beta)
+ap_top_termsP %&gt;%
+mutate(term = reorder(term, beta)) %&gt;% ggplot(aes(term, beta, fill = factor(topic))) + geom_col(show.legend = FALSE) +
+facet_wrap(~ topic, scales = &quot;free&quot;) + coord_flip()</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>words with the greates difference in Beta between topics</p>
+<pre class="r"><code>beta_spread &lt;- ap_topicsP %&gt;%
+  mutate(topic = paste0(&quot;topic&quot;, topic)) %&gt;%
+  spread(topic, beta) %&gt;%
+  filter(topic1 &gt; .001 | topic2 &gt; .001) %&gt;%
+  mutate(log_ratio = log2(topic2 / topic1))
+beta_spread</code></pre>
+<pre><code># A tibble: 348 × 4
+   term         topic1   topic2 log_ratio
+   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 abundance  0.00132  5.08e-44  -134.   
+ 2 accepted   0.00132  1.47e-37  -113.   
+ 3 across     0.000791 1.53e- 3     0.953
+ 4 action     0.00153  3.66e- 4    -2.06 
+ 5 activities 0.00177  7.01e- 4    -1.34 
+ 6 adaptation 0.00161  3.95e- 3     1.30 
+ 7 addition   0.00106  9.98e-10   -20.0  
+ 8 address    0.000528 1.23e- 3     1.22 
+ 9 advance    0.000538 1.52e- 3     1.50 
+10 affect     0.00201  4.20e- 4    -2.26 
+# ℹ 338 more rows</code></pre>
+<pre class="r"><code>beta_spread %&gt;%  
+  arrange(log_ratio) %&gt;% slice(c(1:5,260:264)) %&gt;%
+  ggplot(aes(fct_reorder(term,log_ratio,min), log_ratio)) + 
+  geom_col(show.legend = FALSE) + coord_flip() +
+  ylab(&quot;Log2 ration of beta in topic 2/topic 1&quot;) + xlab(&quot;Word&quot;)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
+Past versions of unnamed-chunk-38-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="document-topic-probabilities" class="section level2">
+<h2>Document-topic probabilities</h2>
+<pre class="r"><code>ap_documentsP &lt;- tidy(ap_lda2P, matrix = &quot;gamma&quot;)
+classifiP &lt;- ap_documentsP %&gt;% mutate(gender = substr(document, nchar(document), nchar(document))) %&gt;%
+  group_by(document,gender) %&gt;%
+      top_n(1, gamma) 
+
+table(classifiP$gender, classifiP$topic)</code></pre>
+<pre><code>   
+     1  2
+  F 12 12
+  M 39 33</code></pre>
+<pre class="r"><code>library(janitor)
+classifiP %&gt;% tabyl(gender, topic) %&gt;% adorn_percentages() %&gt;% 
+  adorn_pct_formatting(digits = 0) %&gt;%
+  adorn_ns() %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gender</th>
+<th align="left">1</th>
+<th align="left">2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F</td>
+<td align="left">50% (12)</td>
+<td align="left">50% (12)</td>
+</tr>
+<tr class="even">
+<td align="left">M</td>
+<td align="left">54% (39)</td>
+<td align="left">46% (33)</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>classifiP %&gt;%
+ # mutate(title = reorder(title, gamma * topic)) %&gt;%
+  ggplot(aes(as.character(topic), gamma)) +
+  geom_boxplot() +
+  geom_violin()+
+  facet_wrap(~ gender)</code></pre>
+<p><img src="figure/3_text_genderAnalysis.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
+Past versions of unnamed-chunk-40-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Chi-square test</p>
+<pre class="r"><code>chisq.test(classifiP$gender, classifiP$topic)</code></pre>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  classifiP$gender and classifiP$topic
+X-squared = 0.013943, df = 1, p-value = 0.906</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.1 (2023-06-16)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] pt_BR.UTF-8/pt_BR.UTF-8/pt_BR.UTF-8/C/pt_BR.UTF-8/pt_BR.UTF-8
+
+time zone: America/Sao_Paulo
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] quanteda.textplots_0.94.4 quanteda_4.0.1            tm_0.7-12                
+ [4] NLP_0.2-1                 topicmodels_0.2-16        ggrepel_0.9.5            
+ [7] scales_1.3.0              tidytext_0.4.2            janitor_2.2.0            
+[10] ggbeeswarm_0.7.2          patchwork_1.2.0           cowplot_1.1.3            
+[13] lubridate_1.9.3           forcats_1.0.0             stringr_1.5.1            
+[16] dplyr_1.1.4               purrr_1.0.2               readr_2.1.5              
+[19] tidyr_1.3.1               tibble_3.2.1              ggplot2_3.5.1            
+[22] tidyverse_2.0.0           knitr_1.45                workflowr_1.7.1          
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.1    vipor_0.4.7         farver_2.1.2        fastmap_1.2.0      
+ [5] janeaustenr_1.0.0   promises_1.3.0      digest_0.6.35       timechange_0.3.0   
+ [9] lifecycle_1.0.4     tokenizers_0.3.0    processx_3.8.4      magrittr_2.0.3     
+[13] compiler_4.3.1      rlang_1.1.4         sass_0.4.9          tools_4.3.1        
+[17] utf8_1.2.4          yaml_2.3.8          labeling_0.4.3      stopwords_2.3      
+[21] plyr_1.8.9          xml2_1.3.6          withr_3.0.0         numDeriv_2016.8-1.1
+[25] grid_4.3.1          stats4_4.3.1        fansi_1.0.6         git2r_0.33.0       
+[29] colorspace_2.1-0    MASS_7.3-60.0.1     mvtnorm_1.2-5       bbmle_1.0.25.1     
+[33] cli_3.6.2           rmarkdown_2.27      generics_0.1.3      rstudioapi_0.16.0  
+[37] reshape2_1.4.4      httr_1.4.7          tzdb_0.4.0          bdsmatrix_1.3-7    
+[41] cachem_1.1.0        modeltools_0.2-23   parallel_4.3.1      vctrs_0.6.5        
+[45] Matrix_1.6-5        jsonlite_1.8.8      slam_0.1-50         callr_3.7.6        
+[49] hms_1.1.3           beeswarm_0.4.0      jquerylib_0.1.4     glue_1.7.0         
+[53] ps_1.7.6            stringi_1.8.4       gtable_0.3.5        later_1.3.2        
+[57] munsell_0.5.1       pillar_1.9.0        htmltools_0.5.8.1   R6_2.5.1           
+[61] rprojroot_2.0.4     evaluate_0.23       lattice_0.22-6      highr_0.10         
+[65] SnowballC_0.7.1     snakecase_0.11.1    httpuv_1.6.15       bslib_0.7.0        
+[69] Rcpp_1.0.12         fastmatch_1.1-4     whisker_0.4.1       xfun_0.42          
+[73] fs_1.6.4            getPass_0.2-4       pkgconfig_2.0.3    </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

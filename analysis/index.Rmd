@@ -1,0 +1,22 @@
+---
+title: "Home"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+Analysis of gender biases in EcoEncontros seminar series, Graduate Program in Ecology at the University of São Paulo. 
+
+The present website/repository contains data, metadata, and modeling analysis source codes necessary to reproduce the EcoEncontros gender bias results.
+
+The preprint is published at EcoEvoRxiv: https://doi.org/10.32942/X25607. Submitted for recommendation to Peer Community in Ecology.
+
+The same repository is stored at Zenodo with the reference and DOI:
+
+Melina de Souza Leite, & Rodrigues Barreto, J. (2024). Data and Code from: Is the audience gender-blind? Smaller audience in female talks highlights prestige differences in academia (v0.9.9). Zenodo. https://doi.org/10.5281/zenodo.11288110
+
+
+[Melina Leite](https://melinaleite.weebly.com/) and [Júlia Barreto](barretoj@usp.br)

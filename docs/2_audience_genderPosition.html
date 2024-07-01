@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Melina Leite, Júlia Barreto &amp; Isabella Romitelli" />
+
+
+<title>Gender bias in audience of seminars and career position</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">genderBias_EcoEncontros</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="0_data_summary.html">1 Data Summary</a>
+</li>
+<li>
+  <a href="1_speaker_genderPosition.html">2 Speaker analysis</a>
+</li>
+<li>
+  <a href="2_audience_genderPosition.html">3 Audience analysis</a>
+</li>
+<li>
+  <a href="3_text_genderAnalysis.html">4 Text analysis</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/melina_leite/genderBias_EcoEncontros">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Gender bias in audience of seminars and
+career position</h1>
+<h4 class="author">Melina Leite, Júlia Barreto &amp; Isabella
+Romitelli</h4>
+<h4 class="date">30 de Junho de 2024</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-06-30
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong>
+<code>genderBias_EcoEncontros_website/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240630code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240630)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240630code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240630)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong168ffc9">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 168ffc9
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong168ffc9"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 168ffc9.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/2_audience_genderPosition.Rmd</code>) and HTML
+(<code>docs/2_audience_genderPosition.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+<td>
+publish the initial version of the website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+<td>
+publish the initial version of the website
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>Data description and summary statitiscs in script
+<code>0_data_summary</code>.</p>
+<pre class="r"><code>load(&quot;output/data_audience.Rdata&quot;)
+data &lt;- data_a</code></pre>
+</div>
+<div id="modeling" class="section level1">
+<h1>Modeling</h1>
+<p>The audience (number of attendants in the seminar) is modeled by the
+gender (male, female), the academic level (student, postdoc, professor)
+of the speaker, and affirmative actions (before, after).</p>
+<p>Negative binomial mixed-effects model with year as random
+intercept.</p>
+<pre class="r"><code>mg0 &lt;- glmmTMB(audience_n~ 1 + (1|year), data=data, family= nbinom2)
+mg1 &lt;- glmmTMB(audience_n~ gender + (1|year), data=data, family= nbinom2)
+mg2 &lt;- glmmTMB(audience_n~ position_cat + (1|year), data=data, family= nbinom2)
+mg3 &lt;- glmmTMB(audience_n~ affirm_action + (1|year), data=data, family= nbinom2)
+
+mg4 &lt;- glmmTMB(audience_n~ gender + position_cat + (1|year), 
+               data=data, family= nbinom2)
+mg5 &lt;- glmmTMB(audience_n~ gender + affirm_action + (1|year), 
+               data=data, family= nbinom2)
+mg6 &lt;- glmmTMB(audience_n~ affirm_action + position_cat+ (1|year), 
+               data=data, family= nbinom2)
+
+mg7 &lt;- glmmTMB(audience_n~ gender * position_cat+ (1|year), 
+               data=data, family= nbinom2)
+mg8 &lt;- glmmTMB(audience_n~ gender * affirm_action+ (1|year), 
+               data=data, family= nbinom2)
+mg9 &lt;- glmmTMB(audience_n~ affirm_action * position_cat+ (1|year), 
+               data=data, family= nbinom2)
+
+mg10 &lt;- glmmTMB(audience_n~ gender + position_cat + affirm_action + (1|year), 
+               data=data, family= nbinom2)
+mg11 &lt;- glmmTMB(audience_n~ gender * position_cat + affirm_action + (1|year), 
+               data=data, family= nbinom2)
+mg12 &lt;- glmmTMB(audience_n~ gender + position_cat * affirm_action + (1|year), 
+               data=data, family= nbinom2)
+
+mg13 &lt;- glmmTMB(audience_n~ gender * position_cat * affirm_action + (1|year), 
+               data=data, family= nbinom2)
+
+AICtab(mg0,mg1,mg2, mg3, mg4,mg5,mg6,mg7,mg8,mg9,mg10,mg11,mg12,mg13, base=T, 
+       weights=T) %&gt;% 
+  kable(digits=2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AIC</th>
+<th align="right">dAIC</th>
+<th align="right">df</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mg11</td>
+<td align="right">2160.03</td>
+<td align="right">0.00</td>
+<td align="right">9</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="even">
+<td align="left">mg10</td>
+<td align="right">2161.43</td>
+<td align="right">1.41</td>
+<td align="right">7</td>
+<td align="right">0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">mg7</td>
+<td align="right">2162.27</td>
+<td align="right">2.24</td>
+<td align="right">8</td>
+<td align="right">0.15</td>
+</tr>
+<tr class="even">
+<td align="left">mg4</td>
+<td align="right">2163.49</td>
+<td align="right">3.47</td>
+<td align="right">6</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left">mg12</td>
+<td align="right">2163.98</td>
+<td align="right">3.95</td>
+<td align="right">9</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">mg13</td>
+<td align="right">2166.62</td>
+<td align="right">6.59</td>
+<td align="right">14</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">mg6</td>
+<td align="right">2167.07</td>
+<td align="right">7.04</td>
+<td align="right">6</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">mg2</td>
+<td align="right">2168.86</td>
+<td align="right">8.83</td>
+<td align="right">5</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">mg9</td>
+<td align="right">2170.27</td>
+<td align="right">10.25</td>
+<td align="right">8</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">mg5</td>
+<td align="right">2185.83</td>
+<td align="right">25.80</td>
+<td align="right">5</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">mg1</td>
+<td align="right">2186.24</td>
+<td align="right">26.22</td>
+<td align="right">4</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">mg8</td>
+<td align="right">2187.65</td>
+<td align="right">27.62</td>
+<td align="right">6</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">mg0</td>
+<td align="right">2201.16</td>
+<td align="right">41.14</td>
+<td align="right">3</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">mg3</td>
+<td align="right">2201.29</td>
+<td align="right">41.27</td>
+<td align="right">4</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+<div id="residual-diagnostic" class="section level2">
+<h2>Residual diagnostic</h2>
+<p>Using the <code>DHARMa</code> package.</p>
+<p>The two most plausible models presented a satisfactory residual
+diagnostic.</p>
+<pre class="r"><code>plot(simulateResiduals(mg11))</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(simulateResiduals(mg10))</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="models-result" class="section level2">
+<h2>Models result</h2>
+<p>The two equally plausible models for the audience included gender,
+academic level and affirmative actions as predictors, with the
+difference that the best fitted model includes an interaction of gender
+and academic level.</p>
+<pre class="r"><code>summary(mg11)</code></pre>
+<pre><code> Family: nbinom2  ( log )
+Formula:          audience_n ~ gender * position_cat + affirm_action + (1 | year)
+Data: data
+
+     AIC      BIC   logLik deviance df.resid 
+  2160.0   2193.3  -1071.0   2142.0      289 
+
+Random effects:
+
+Conditional model:
+ Groups Name        Variance Std.Dev.
+ year   (Intercept) 0.009051 0.09513 
+Number of obs: 298, groups:  year, 12
+
+Dispersion parameter for nbinom2 family (): 7.05 
+
+Conditional model:
+                              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                    2.80057    0.06192   45.23   &lt;2e-16 ***
+genderM                        0.11642    0.07417    1.57   0.1165    
+position_catpostdoc            0.12249    0.10663    1.15   0.2506    
+position_catprofessor          0.16594    0.10469    1.59   0.1130    
+affirm_actionafter             0.21633    0.09697    2.23   0.0257 *  
+genderM:position_catpostdoc   -0.12984    0.14357   -0.90   0.3658    
+genderM:position_catprofessor  0.22663    0.12674    1.79   0.0738 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>performance::r2(mg11)</code></pre>
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.221
+     Marginal R2: 0.180</code></pre>
+<pre class="r"><code>myg11 &lt;- ggpredict(mg11, terms=c(&quot;position_cat&quot;,&quot;gender&quot;, &quot;affirm_action&quot;))
+prs &lt;- as.data.frame(myg11) %&gt;% rename(affirm_action = facet)
+colnames(prs)[1] &lt;- &quot;position_cat&quot;</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>summary(mg10)</code></pre>
+<pre><code> Family: nbinom2  ( log )
+Formula:          audience_n ~ gender + position_cat + affirm_action + (1 | year)
+Data: data
+
+     AIC      BIC   logLik deviance df.resid 
+  2161.4   2187.3  -1073.7   2147.4      291 
+
+Random effects:
+
+Conditional model:
+ Groups Name        Variance Std.Dev.
+ year   (Intercept) 0.008642 0.09296 
+Number of obs: 298, groups:  year, 12
+
+Dispersion parameter for nbinom2 family (): 6.87 
+
+Conditional model:
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)            2.78546    0.05768   48.29  &lt; 2e-16 ***
+genderM                0.15395    0.05522    2.79   0.0053 ** 
+position_catpostdoc    0.04292    0.07173    0.60   0.5496    
+position_catprofessor  0.33054    0.06264    5.28 1.32e-07 ***
+affirm_actionafter     0.20807    0.09577    2.17   0.0298 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>performance::r2(mg10)</code></pre>
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.207
+     Marginal R2: 0.169</code></pre>
+<pre class="r"><code>myg10 &lt;- ggpredict(mg10, terms=c(&quot;position_cat&quot;,&quot;gender&quot;, &quot;affirm_action&quot;))
+pr10 &lt;- as.data.frame(myg10) %&gt;% rename(affirm_action = facet)
+colnames(pr10)[1] &lt;- &quot;position_cat&quot;</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/Fig_S3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Fig_S3-1">
+Past versions of Fig_S3-1.png
+</button>
+</p>
+<div id="fig-Fig_S3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="only-professors---productivity-metrics" class="section level1">
+<h1>Only professors - productivity metrics</h1>
+<p>Investigating if differences in productivity between male and female
+professors and researches are related to the audience.</p>
+<p>We measured productivity publication metrics from Google Scholar for
+professors and researchers.</p>
+<p>Creating productivity index using PCA 1st axis from metrics.</p>
+<div id="pca-productivity-metrics" class="section level2">
+<h2>PCA productivity metrics</h2>
+<pre class="r"><code>dp &lt;- data %&gt;% filter(!is.na(data$total_citation_n),
+                      !is.na(data$nature_index_count))
+colnames(dp)[22:29] &lt;- c(&quot;tot_cit&quot;, &quot;h&quot;, &quot;i10&quot;, &quot;most_cit&quot;, &quot;cit_cum&quot;,
+                        &quot;career_Y&quot;, &quot;nature_count&quot;, &quot;nature_share&quot;)
+table(dp$gender, dp$affirm_action)</code></pre>
+<pre><code>   
+    before after
+  F     14     6
+  M     58     9</code></pre>
+<p>Productivity publication metrics</p>
+<pre class="r"><code>pca1 &lt;- PCA(dp[, c(22:29)], graph=F)</code></pre>
+<pre class="r"><code>p1 &lt;- fviz_pca_biplot(pca1, col.ind = dp$gender, addEllipses=TRUE,
+                      col.ind.sub=&quot;none&quot;,  geom=&quot;point&quot;,
+                      repel = TRUE) +
+  geom_vline(xintercept = 0, linetype=&quot;dashed&quot;) + 
+  geom_hline(yintercept = 0, linetype=&quot;dashed&quot;)+
+  scale_color_manual(name=&quot;Gender&quot;,values = c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;))+
+  scale_shape(name=&quot;Gender&quot;)+
+  scale_fill_manual(name=&quot;Gender&quot;,values = c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;))+
+  ggtitle(&quot;Productivity metrics&quot;) +
+  xlab(&quot;PC1 (52%)&quot;) + ylab(&quot;PC2 (21%)&quot;) +
+  theme_cowplot()
+
+p1
+#(&quot;figures/pca_biplot.jpeg&quot;, width=6, height = 6)  </code></pre>
+<p>For the analysis specific for professor talks (N=87), the PCA results
+show that all the productivity metrics for professors were highly
+correlated (Figure 2B) with the first axis (52% of variance explained)
+while the institution indexes composed the second PCA axis (21% of
+variation explained).</p>
+<p>Extracting PCA 2 first axes</p>
+<pre class="r"><code>dp$pc1 &lt;- pca1$ind$coord[,1]
+dp$pc2 &lt;- pca1$ind$coord[,2]</code></pre>
+</div>
+<div id="modeling-1" class="section level2">
+<h2>Modeling</h2>
+<pre class="r"><code>m0 &lt;- glmmTMB(audience_n ~ 1 + affirm_action + (1|year), data=dp, family=nbinom2)
+m1 &lt;- glmmTMB(audience_n ~ gender + affirm_action +(1|year), data=dp,
+              family=nbinom2)
+m2 &lt;- glmmTMB(audience_n ~ pc1 + + affirm_action + (1|year), data=dp,
+              family=nbinom2)
+m3 &lt;- glmmTMB(audience_n ~ gender + pc1 + affirm_action + (1|year), 
+              data=dp, family=nbinom2)
+m4 &lt;- glmmTMB(audience_n ~ gender*pc1 + affirm_action + (1|year),
+              data=dp, family=nbinom2)
+
+AICtab(m0,m1,m2,m3,m4,
+       base=T, weights=T) %&gt;% kable(digits=2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AIC</th>
+<th align="right">dAIC</th>
+<th align="right">df</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">m3</td>
+<td align="right">691.32</td>
+<td align="right">0.00</td>
+<td align="right">6</td>
+<td align="right">0.60</td>
+</tr>
+<tr class="even">
+<td align="left">m4</td>
+<td align="right">692.95</td>
+<td align="right">1.64</td>
+<td align="right">7</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="odd">
+<td align="left">m2</td>
+<td align="right">695.04</td>
+<td align="right">3.73</td>
+<td align="right">5</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">m1</td>
+<td align="right">696.94</td>
+<td align="right">5.62</td>
+<td align="right">5</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">m0</td>
+<td align="right">702.13</td>
+<td align="right">10.82</td>
+<td align="right">4</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="residual-diagnostic-1" class="section level2">
+<h2>Residual diagnostic</h2>
+<p>Using the <code>DHARMa</code> package.</p>
+<p>The two most plausible models presented a satisfactory residual
+diagnostic.</p>
+<pre class="r"><code>plot(simulateResiduals(m3))</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(simulateResiduals(m4))</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="model-results" class="section level2">
+<h2>Model results</h2>
+<pre class="r"><code>summary(m3)</code></pre>
+<pre><code> Family: nbinom2  ( log )
+Formula:          audience_n ~ gender + pc1 + affirm_action + (1 | year)
+Data: dp
+
+     AIC      BIC   logLik deviance df.resid 
+   691.3    706.1   -339.7    679.3       81 
+
+Random effects:
+
+Conditional model:
+ Groups Name        Variance  Std.Dev. 
+ year   (Intercept) 1.622e-09 4.027e-05
+Number of obs: 87, groups:  year, 11
+
+Dispersion parameter for nbinom2 family (): 5.52 
+
+Conditional model:
+                   Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)         3.03070    0.11415  26.550   &lt;2e-16 ***
+genderM             0.30566    0.12366   2.472   0.0134 *  
+pc1                 0.07246    0.02626   2.759   0.0058 ** 
+affirm_actionafter  0.27050    0.13267   2.039   0.0415 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>performance::r2(m3)</code></pre>
+<pre><code>Random effect variances not available. Returned R2 does not account for random effects.</code></pre>
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: NA
+     Marginal R2: 0.206</code></pre>
+<p>We used the first PCA axis as predictors together with gender to
+explain the professor’s audience, and found that, as expected, audience
+increases with productivity index (first PCA axis) but female professors
+still presented on average audience <em>1.4</em> times smaller than male
+professors.</p>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>my3 &lt;- ggpredict(m3, terms=c(&quot;gender&quot;))
+plot(my3)</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>my4 &lt;- ggpredict(m4, terms=c(&quot;pc1&quot;,&quot;gender&quot;)) %&gt;% as.data.frame()
+ggplot(my4, aes(x=x, y=predicted, col=group)) +
+  geom_ribbon(aes(ymin=conf.low,ymax=conf.high, fill=group), alpha=0.3,
+             colour = NA) +
+    geom_line()+
+  scale_color_manual(name=&quot;Gender&quot;,values = c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;))+
+  scale_fill_manual(name=&quot;Gender&quot;,values = c(&quot;#6D57CF&quot;,&quot;#FCA532&quot;))+
+   theme_cowplot() + ggtitle(&quot;&quot;) +
+  ylab(&quot;Audience (N)&quot;) + xlab(&quot;Productivity index (PC1 axis)&quot;)+
+  geom_point(data=dp, aes(x=pc1, y=audience_n, col=gender), alpha=0.6)</code></pre>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>#ggsave(&quot;figures/audience_professor.jpeg&quot;, width=9, height = 6)  </code></pre>
+</div>
+</div>
+<div id="figure-3-audience" class="section level1">
+<h1>Figure 3 audience</h1>
+<p><img src="figure/2_audience_genderPosition.Rmd/unnamed-chunk-20-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+168ffc9
+</td>
+<td>
+melina-leite
+</td>
+<td>
+2024-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&lt;!–T</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.1 (2023-06-16)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] pt_BR.UTF-8/pt_BR.UTF-8/pt_BR.UTF-8/C/pt_BR.UTF-8/pt_BR.UTF-8
+
+time zone: America/Sao_Paulo
+tzcode source: internal
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] glmmTMB_1.1.9      factoextra_1.0.7   FactoMineR_2.10    performance_0.11.0
+ [5] MASS_7.3-60.0.1    bbmle_1.0.25.1     ggeffects_1.5.1    DHARMa_0.4.6      
+ [9] janitor_2.2.0      patchwork_1.2.0    cowplot_1.1.3      lubridate_1.9.3   
+[13] forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2       
+[17] readr_2.1.5        tidyr_1.3.1        tibble_3.2.1       ggplot2_3.5.1     
+[21] tidyverse_2.0.0    knitr_1.45         workflowr_1.7.1   
+
+loaded via a namespace (and not attached):
+  [1] rstudioapi_0.16.0    jsonlite_1.8.8       datawizard_0.10.0    magrittr_2.0.3      
+  [5] TH.data_1.1-2        estimability_1.5     farver_2.1.2         nloptr_2.0.3        
+  [9] rmarkdown_2.27       fs_1.6.4             vctrs_0.6.5          minqa_1.2.6         
+ [13] rstatix_0.7.2        htmltools_0.5.8.1    haven_2.5.4          broom_1.0.5         
+ [17] sass_0.4.9           bslib_0.7.0          htmlwidgets_1.6.4    plyr_1.8.9          
+ [21] sandwich_3.1-0       emmeans_1.10.1       zoo_1.8-12           cachem_1.1.0        
+ [25] TMB_1.9.11           whisker_0.4.1        mime_0.12            lifecycle_1.0.4     
+ [29] iterators_1.0.14     pkgconfig_2.0.3      gap_1.5-3            Matrix_1.6-5        
+ [33] R6_2.5.1             fastmap_1.2.0        rbibutils_2.2.16     shiny_1.8.1.1       
+ [37] snakecase_0.11.1     digest_0.6.35        numDeriv_2016.8-1.1  colorspace_2.1-0    
+ [41] ps_1.7.6             rprojroot_2.0.4      qgam_1.3.4           ggpubr_0.6.0        
+ [45] labeling_0.4.3       fansi_1.0.6          timechange_0.3.0     abind_1.4-5         
+ [49] httr_1.4.7           mgcv_1.9-1           compiler_4.3.1       withr_3.0.0         
+ [53] doParallel_1.0.17    backports_1.5.0      carData_3.0-5        highr_0.10          
+ [57] ggsignif_0.6.4       scatterplot3d_0.3-44 flashClust_1.01-2    tools_4.3.1         
+ [61] httpuv_1.6.15        glue_1.7.0           callr_3.7.6          nlme_3.1-164        
+ [65] promises_1.3.0       grid_4.3.1           getPass_0.2-4        cluster_2.1.6       
+ [69] generics_0.1.3       gtable_0.3.5         tzdb_0.4.0           hms_1.1.3           
+ [73] car_3.1-2            utf8_1.2.4           ggrepel_0.9.5        foreach_1.5.2       
+ [77] pillar_1.9.0         later_1.3.2          splines_4.3.1        lattice_0.22-6      
+ [81] survival_3.5-8       tidyselect_1.2.1     git2r_0.33.0         xfun_0.42           
+ [85] DT_0.33              stringi_1.8.4        yaml_2.3.8           boot_1.3-30         
+ [89] evaluate_0.23        codetools_0.2-20     multcompView_0.1-10  cli_3.6.2           
+ [93] xtable_1.8-4         Rdpack_2.6           munsell_0.5.1        processx_3.8.4      
+ [97] jquerylib_0.1.4      Rcpp_1.0.12          coda_0.19-4.1        bdsmatrix_1.3-7     
+[101] parallel_4.3.1       leaps_3.1            gap.datasets_0.0.6   lme4_1.1-35.2       
+[105] mvtnorm_1.2-5        scales_1.3.0         insight_0.19.10      rlang_1.1.4         
+[109] multcomp_1.4-25     </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

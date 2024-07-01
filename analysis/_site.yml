@@ -1,0 +1,29 @@
+name: genderBias_EcoEncontros
+output_dir: ../docs
+navbar:
+  title: genderBias_EcoEncontros
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: 1 Data Summary
+    href: 0_data_summary.html
+  - text: 2 Speaker analysis
+    href: 1_speaker_genderPosition.html
+  - text: 3 Audience analysis
+    href: 2_audience_genderPosition.html
+  - text: 4 Text analysis
+    href: 3_text_genderAnalysis.html
+  - text: License
+    href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/melina_leite/genderBias_EcoEncontros_website
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
