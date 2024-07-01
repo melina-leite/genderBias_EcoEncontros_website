@@ -7,15 +7,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-What license are you using for your code? See [choosealicense.com][choose] for
-help deciding. It's a convention to save a file `LICENSE` in the root of your
-Git repo that contains the license text.
+CC BY 4.0 License
 
-What license are you using for the written content on your site? It is
-traditional to choose a [Creative Commons][cc] license for this type of content.
+For citations, please use the Zenodo Repository DOI:
 
-[choose]: https://choosealicense.com/
-[cc]: https://creativecommons.org/choose/
-
-How should others cite your work? It's a convention to save a file `CITATION`
-in the root of your Git repo that contains the citation information.
+Melina de Souza Leite, & Rodrigues Barreto, J. (2024). Data and Code from: Is the audience gender-blind? Smaller audience in female talks highlights prestige differences in academia (v0.9.9). Zenodo. https://doi.org/10.5281/zenodo.11288110
