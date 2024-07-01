@@ -7,13 +7,13 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: 1 Data Summary
+  - text: 0 Data Summary
     href: 0_data_summary.html
-  - text: 2 Speaker analysis
+  - text: 1 Speaker analysis
     href: 1_speaker_genderPosition.html
-  - text: 3 Audience analysis
+  - text: 2 Audience analysis
     href: 2_audience_genderPosition.html
-  - text: 4 Text analysis
+  - text: 3 Text analysis
     href: 3_text_genderAnalysis.html
   - text: License
     href: license.html
