@@ -10,7 +10,7 @@ navbar:
   - text: 0 Data Summary
     href: 0_data_summary.html
   - text: 1 Speaker analysis
-    href: 1_speaker_genderPosition.html
+    href: 1_speakers_genderPosition.html
   - text: 2 Audience analysis
     href: 2_audience_genderPosition.html
   - text: 3 Text analysis
